@@ -3,7 +3,7 @@
 
 
 /*******************nRF24L01的端口定义********************/
-#define NRF24L01_CE	    2
+#define NRF24L01_CE	    0
 #define NRF24L01_CSN	    7
 #define NRF24L01_SCLK	    3
 #define NRF24L01_MOSI	    6
@@ -256,7 +256,7 @@ unsigned char NRF24L01_Read_Data(unsigned char *rx_buf);
 unsigned char NRF24L01_Send_Data(unsigned char *tx_buf);
 void NRF24L01_RX_Mode_Init(void);
 void NRF24L01_TX_Mode_Init(void);
-
+int NRF24L01_Check(void);
 
 
 #endif

@@ -35,6 +35,19 @@ void SPI_Write_8bit(unsigned char dat)
 }
 
 
+int NRF24L01_Check(void)
+{
+	unsigned char buf[5]={0XA5,0XA5,0XA5,0XA5,0XA5};
+	unsigned char i;
+	//SPI1_SetSpeed(SPI_BaudRatePrescaler_4); //spi?¨´?¨¨?a9Mhz¡ê¡§24L01¦Ì?¡Á?¡ä¨®SPI¨º¡À?¨®?a10Mhz¡ê?   	 
+	NRF24L01_Write_Str(NRF24L01_WRITE_REG+TX_ADDR,buf,5);//D¡ä¨¨?5??¡Á??¨²¦Ì?¦Ì??¡¤.	
+	NRF24L01_Read_Str(TX_ADDR,buf,5); //?¨¢3?D¡ä¨¨?¦Ì?¦Ì??¡¤  
+	//printf((char*)buf);
+	for(i=0;i<5;i++)if(buf[i]!=0XA5)break;	 							   
+	if(i!=5)return 1;//¼ì²â24l01´íÎó	
+	return 0;		 //¼ì²âµ½24l01
+}	 	 
+
 
 /**********************************************************
 *º¯Êý£ºSPI_Read_8bit(void)

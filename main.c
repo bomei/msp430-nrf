@@ -1,8 +1,9 @@
 //发送模式
 #include <msp430.h>
-#include "NRF24L01.h"
+//#include "NRF24L01.h"
 #include "string.h"
 #include "advance.h"
+#include "uart.h"
 
 int cnt;
 long long t;
@@ -30,16 +31,16 @@ P1DIR = 0xce;  //24l01设置IO口方向。P1.1用来看一次发射需要的时间
   P1IE  |= BIT0;                    // 允许P1.0中断
   P1IFG &=~BIT0;
   _EINT();*/
-  P1_1_0();
-  P1_1_1();
+/*
   while(NRF24L01_Check());
 NRF24L01_TX_Mode_Init();          // nRF24L01初始化为发送模式
 NRF24L01_Send_Data(temp_buf);
-nrf24l01_powerdown();
+nrf24l01_powerdown();*/
 //  P1DIR = 0;
 //  P1_1_0();
 //  LPM4;
 
+uart_init()
   while(1){
 
     /*cnt++;
@@ -50,7 +51,7 @@ nrf24l01_powerdown();
         nrf24l01_powerdown();
         P1_1_0();
     }
-    */
+    
       P1_1_0();
       for(cnt=5;cnt>0;--cnt){
         t=1000;
@@ -61,7 +62,7 @@ nrf24l01_powerdown();
         t=1000;
         while(t-->0);
       }
-
+*/
   }
 }
 /*

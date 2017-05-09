@@ -40,9 +40,11 @@ nrf24l01_powerdown();*/
 //  P1_1_0();
 //  LPM4;
 
-uart_init()
+	uart0_9600_init();
   while(1){
-
+	if(UART0_RX_DONE){
+	  uart0_send_buf(UART0_RX_BUF);
+	}
     /*cnt++;
     if(cnt%10000==0){
         P1DIR = 0xce;

@@ -7,19 +7,20 @@ unsigned char rx_buffer;
 	u8 UART0_RX_BUF[UART_REC_LEN];
 	u16 UART0_RX_STA=0;
 
-	void uart0_init(void)
+	void uart0_9600_init(void)
 	{
 		P1SEL |= BIT1 + BIT2 ;                     // P1.1 = RXD, P1.2=TXD
 		P1SEL2 |= BIT1 + BIT2 ;                     // P1.1 = RXD, P1.2=TXD
 
 		UCA0CTL1 = UCSWRST;
-		UCA0CTL1 |= UCSSEL_2;                     // uart时钟: SMCLK=1MHz
-		UCA0BR0 = 104;                            // 设置波特率:9600
-		UCA0BR1 = 0;                              // 设置波特率:9600
+		UCA0CTL1 |= UCSSEL_2;                     // uart鏃堕挓: SMCLK=1MHz
+		UCA0BR0 = 104;                            // 璁剧疆娉㈢壒鐜�:9600
+		UCA0BR1 = 0;                              // 璁剧疆娉㈢壒鐜�:9600
 		UCA0MCTL = UCBRS0;                        // Modulation UCBRSx = 1
 		UCA0CTL1 &= ~UCSWRST;                     // **Initialize USCI state machine**
 
-		IE2 |= UCA0RXIE+UCA0TXIE;                 // Enable USCI_A0 RX and TX interrupt
+//		IE2 |= UCA0RXIE+UCA0TXIE;                 // Enable USCI_A0 RX and TX interrupt
+		IE2 |= UCA0RXIE;
 	}
 
 	void uart0_send_char(u8 ch){
@@ -31,12 +32,12 @@ unsigned char rx_buffer;
 	{
 	  while(*s)
 	  {
-	    uart_send_char(*s);
+	    uart0_send_char(*s);
 	    s++;
 	  }
 	}
 
-	//  uart串口RX接收到一个字符,产生中断处理
+	//  uart涓插彛RX鎺ユ敹鍒颁竴涓瓧绗�,浜х敓涓柇澶勭悊
 	#pragma vector=USCIAB0RX_VECTOR
 	__interrupt void USCI0RX_ISR(void)
 	{
@@ -52,6 +53,7 @@ unsigned char rx_buffer;
 					UART0_RX_STA|=0x8000;
 					UART0_RX_BUF[UART0_RX_LEN]='\0';
 				}
+			}
 		}
 		else{
 			if(Res == 0x0d){

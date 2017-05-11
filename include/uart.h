@@ -7,7 +7,7 @@
 #define u16 unsigned int
 
 #define UART_REC_LEN 200					//max receive bytes
-#define EN_USART0_RX  1						//enable usart1 to rx
+#define EN_UART0_RX  1						//enable usart1 to rx
 
 extern u8 UART0_RX_BUF[UART_REC_LEN];		//rx cache
 

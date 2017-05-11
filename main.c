@@ -24,8 +24,8 @@ void main(void)
   DCOCTL =  CALDCO_1MHZ;             //设置DCO频率
 //  t=10000*50;
 //  while(t-->0);
-P1SEL = 0x00;
-P1DIR = 0xce;  //24l01设置IO口方向。P1.1用来看一次发射需要的时间
+//P1SEL = 0x00;
+//P1DIR = 0xce;  //24l01设置IO口方向。P1.1用来看一次发射需要的时间
   /*
   P1IES = 0x00;                     // P1.0设为上升沿中断
   P1IE  |= BIT0;                    // 允许P1.0中断
@@ -41,6 +41,8 @@ nrf24l01_powerdown();*/
 //  LPM4;
 
 	uart0_9600_init();
+	_EINT();
+	uart0_send_buf("hello");
   while(1){
 	if(UART0_RX_DONE){
 	  uart0_send_buf(UART0_RX_BUF);

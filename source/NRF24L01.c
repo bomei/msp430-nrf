@@ -234,7 +234,7 @@ void NRF24L01_RX_Mode_Init(void)
 {
   
   P1SEL = 0x00;
-  P1DIR = 0xcc;  //(24l01)设置IO口方向
+  P1DIR = 0xcd;  //(24l01)设置IO口方向
   
   NRF24L01_CE_1();
   NRF24L01_CSN_1();

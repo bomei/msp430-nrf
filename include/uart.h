@@ -18,6 +18,6 @@ extern u16 UART0_RX_STA;					//rx state
 
 
 void uart0_9600_init(void);
-void uart0_send_buf(char *s);
+void uart0_send_buf(u8 *s);
 void uart0_send_char(u8 ch);
 #endif

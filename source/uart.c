@@ -28,7 +28,7 @@ unsigned char rx_buffer;
 		UCA0TXBUF=ch;
 	}
 
-	void uart0_send_buf(char *s)
+	void uart0_send_buf(unsigned char *s)
 	{
 	  while(*s)
 	  {
@@ -42,7 +42,7 @@ unsigned char rx_buffer;
 	__interrupt void USCI0RX_ISR(void)
 	{
 		u8 Res;
-		while((IFG2&UCA0RXIFG)==0);
+//		while((IFG2&UCA0RXIFG)==0);
 		Res=UCA0RXBUF;
 
 		if((UART0_RX_STA&0x8000)==0){					//rx unfinish
@@ -54,17 +54,18 @@ unsigned char rx_buffer;
 					UART0_RX_BUF[UART0_RX_LEN]='\0';
 				}
 			}
-		}
-		else{
-			if(Res == 0x0d){
-				UART0_RX_STA |= 0x4000;
-			}
-			else{
-				UART0_RX_BUF[UART0_RX_STA&0x3fff]=Res;
-				UART0_RX_STA++;
-				if(UART0_RX_STA>(UART_REC_LEN-1))
-					UART0_RX_STA=0;						//rx error, restart
-			}
+
+            else{
+                if(Res == 0x0d){
+                    UART0_RX_STA |= 0x4000;
+                }
+                else{
+                    UART0_RX_BUF[UART0_RX_STA&0x3fff]=Res;
+                    UART0_RX_STA++;
+                    if(UART0_RX_STA>(UART_REC_LEN-1))
+                        UART0_RX_STA=0;						//rx error, restart
+                }
+            }
 		}
 
 	}
